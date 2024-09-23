@@ -16,7 +16,7 @@ PHP: The server-side scripting language used to build dynamic web content.
 
 **Step 0: Launch an EC2 instance**
 * On the AWS Console, Create an Ubuntu EC2 instance
-- Name: Instance name. e.g Allens-LEMP-Server
+- Name: Instance name. e.g Allen-LEMP-Server
 * AMI: Select Ubuntu 24.04 LTS HVM (64-bit architecture).
 + Instance type: Select the t2.micro machine type (eligible for free tier). ![instance selection](https://github.com/user-attachments/assets/bf795167-e62a-451b-9830-1d2153cd071e)
 
@@ -107,42 +107,53 @@ PHP: The server-side scripting language used to build dynamic web content.
   We need to install a database management system to be able to store and manage relational data for our website. 
 - To install MySQL we use the command: 
 sudo apt install mysql-server
- ![sudo install my sql server](https://github.com/user-attachments/assets/afa8d926-12e5-4474-bdc5-c0b573f80b17)
+ ![install mysql-server](https://github.com/user-attachments/assets/bcd7ce9a-164b-472d-ba2f-6717fe7c4cd9)
+
 
 * We then login to the MYSQL console by typing: sudo mysql
 
   
-    ![sudo mysql output](https://github.com/user-attachments/assets/b63f4b73-9d28-4fb9-872d-b6c9e734d995)
+    ![after install mysql](https://github.com/user-attachments/assets/7d21a283-8d8d-4f9a-92a7-67f64d457d6a)
 
- We are now connected to the MySQL server as the administrative database root user. We have to set as the root user to prevent unauthorized access into the database. We will do this by setting a password for 
+
+ We are now connected to the MySQL server as the administrative database root user. We have to set as the root user to prevent unauthorized access into the 
+ database. We will do this by setting a password for 
  access control.
   
 + Set MYSQL root user password by entering the command :
- ALTERUSER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password.1';
+ ALTER USER'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password.1';
 
-    ![mysql root user password setting](https://github.com/user-attachments/assets/f19df68f-249d-402e-ba3a-86e620ea9bac)
+    ![image](https://github.com/user-attachments/assets/452e95b4-08f1-4678-b6ba-e1a7f58234e2)
+
 
 
 - Exit the MySQL shell by typing: >exit
 * Next we would start an interact an interactive script that would allow us to remove any insecure default settings and futher lockdown access to our database system using the command:
-   sudo mysql_secure_installation ![sudo mysql secure installation](https://github.com/user-attachments/assets/a4652811-ee7b-481b-b676-7a3433e494d3)
+   sudo mysql_secure_installation ![sudo mysql_secure_installation](https://github.com/user-attachments/assets/b8d523dc-ead6-4638-9dd2-73b5fad8b622)
 
 
-+ We would be asked to validate password plugin. We will have to choose a level for password validation with different categories. 0 = Low, 1 = Medium and 2 =Strong. Recall that the password earlier created 
-  for the root user was "Password.1" and this matches the level 1. We would stick with it and choose 1. 
++ We would be asked to validate password plugin. We will have to choose a level for password validation with different categories. 0 = Low, 1 = Medium and 2 
+ =Strong. Recall that the password earlier created 
+  for the root user was "password.1" and this matches the level 0. We would stick with it and choose 0.
+
   
-     ![password validation](https://github.com/user-attachments/assets/ed6ad013-5993-45f2-8bca-6bd2755944d7)
 
+  ![password validation](https://github.com/user-attachments/assets/09a40a19-1caa-41ec-a1a1-4fddec2e9a74)
+
+  
+   
   We would be asked to choose yes or no for some other questions. We can select yes to all.
 
-     ![yes to all](https://github.com/user-attachments/assets/a113bdbe-d3c4-408c-a49d-1ad150c33036)
+     ![yes to all](https://github.com/user-attachments/assets/dcd55af7-f019-40f4-84d9-a373b2fd3fab)
+
 
 
 
 + Next we would try to enter the MySQL console using the root user password we created earlier:
       sudo mysql -p
 
-    ![enter mysql console using password created](https://github.com/user-attachments/assets/bc5f95bc-ea11-4810-b78b-9b587947b230)
+    ![image](https://github.com/user-attachments/assets/113d2ab4-dd43-42c5-ad46-fc36444a7c4a)
+
 
   No error means we have successfully accessed the console using the password. We then exit the console by entering the exit command.
 
@@ -164,17 +175,21 @@ sudo apt install mysql-server
 
 
 
-  PHP (Hypertext Preprocessor) is a popular open-source scripting language used primarily for web development, enabling the creation of dynamic and interactive websites. It runs on the server side and is 
-  embedded in HTML to handle tasks like form data processing, database interactions, and content management.
-  You have to install PHP and two php packages: 1. **php-Mysql** module, to help PHP communicate with MySql based databases and also **libapache2-mod-php** to enable apache2 handle PHP files. Core PHP 
-  packages are installed automatically upon installlation of PHP.
-  - Install all three using the command:
+  PHP (Hypertext Preprocessor) is a popular open-source scripting language used primarily for web development, enabling the creation of dynamic and interactive 
+ websites. It runs on the server side and is embedded in HTML to handle tasks like form data processing, database interactions, and content management. Nginx 
+ requires external program to handle PHP processing and act as bridge between the PHP interpreter and the webserver. This will ensure a better overall 
+ performance in PHP websites.
+ 
+  You have to install PHP and two php packages: 1. **php-fpm** module which stands for PHP Fast CGI Process manager. We would tell Nginx to pass PHP request to 
+ this software for processing. 2. We install PHP-mysql to allow communication between PHP and MySQL databases. Other packages are installed automatically upon installlation of PHP.
+  - Install both modules using the command:
     
 
-    sudo apt install php libapache2-mod-php php-mysql
+    sudo apt install php-fpm php-mysql
 
 
-    ![image](https://github.com/user-attachments/assets/edd46283-c257-43da-9c5d-8d92357f31bc)
+    ![image](https://github.com/user-attachments/assets/90058ca8-67b6-4391-8e0e-6c85d461ea70)
+
 
 
 
@@ -183,6 +198,9 @@ sudo apt install mysql-server
 
     php -v
 
+
+
+    ![image](https://github.com/user-attachments/assets/90e91999-b007-429a-a2cf-467772e49fdf)
 
 
    **Step 4: Create a Virtual Host**
