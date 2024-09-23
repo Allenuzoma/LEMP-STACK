@@ -321,50 +321,7 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
 
    
 
-    ![apache2 website](https://github.com/user-attachments/assets/7c6fd9cb-9d38-46cd-ad22-ece2622731ae)
-
- + We would need to disable apache default site so as to have projectlamp website running:
-       sudo a2dissite 000-default
-
- + Next reload Apache using:
-       sudo systemctl reload apache2    
-
-
-
-
-
-
-
-
-   ![refresh website after a2dissite ](https://github.com/user-attachments/assets/055486d6-a840-4422-9bc8-a96a360345a0)
-
-
-
-
-
-    Now we can see our website is not displaying the apache default page anymore. However projectlamp page is running but it is virtually empty and not displaying our customized information. This is because 
-    the webroot is empty. We would correct this by going to the web root /var/www/projectlamp and creating an index.html file in the directory. We would copy the following code into it so that we can test 
-    that the virtual host works as expected.
-   + Create the index.html file using nano:
-
-        sudo nano /var/www/projectlamp.index.html
-
-     + copy a simple html code for our website:
-    
-     
-                <!DOCTYPE html>
-                <html lang="en">
-                  <body>
-                    <h1>Welcome to Project Lamp's website</h1>
-                    <h1>Created by Allens Uzoma Okwudei!</h1>
-                  </body>
-                </html>
-
-
-          
-
-
-
+  
 
  + Reloading our web browser displays a more meaningful webpage which is accessed with the public IP adress or the public DNS name.
 
@@ -373,7 +330,8 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
 
 
 
-   ![reloading after webroot index](https://github.com/user-attachments/assets/1208624a-792d-4f48-83de-7db16dbd52d7)
+   ![image](https://github.com/user-attachments/assets/452faa76-e495-41d5-8e83-d2ff11619003)
+
 
 
  
