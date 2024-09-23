@@ -338,14 +338,34 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
 
 
 
-**Step 5: Enable PHP on the website**
-Index.html files are useful when our website is under maintenance and be used to convey such information to visiting users. However, we need to create a more dynamic webpage, hence the need to create a 
-webpage using the index.php component.
-But before we create the php component, we would need to correct a default apache feature which makes index.html take precedence over index.php. This will be corrected in the dir.conf file located in the mods-enable directory of apache2:
-         sudo nano /etc/apache2/mods-enabled/dir.conf 
+**Step 5: Testing PHP with Nginx**
+We have to see if we can Nginx can hand .php files to the processor. We do this by creating an info.php file in the web root directory.
+         sudo nano /var/www/projectlemp/info.php
+
+We enter the following script into the info.php file
+
+        <?php
+        phpinfo();
+
+
+
+
+![image](https://github.com/user-attachments/assets/7953ec07-9586-4538-a1d0-47787035f140)
+
++ On your browser visit http://<ipaddress>/info.php and you will see the php homepage.
+
+
+![image](https://github.com/user-attachments/assets/66312c77-2a77-419b-88d9-abad25f5d5a1)
+
 
             
-            
++ We will have to remove the info.php file as it is a sensitive file that reveals details about server:
+
+
+                sudo rm /var/www/projectlemp/info.php
+
+Reloading our nrowser takes us to 403 forbidden page.
+  
             
             
 ![dir conf before](https://github.com/user-attachments/assets/6c0298f0-8848-43dc-a6b3-40146746a128)
