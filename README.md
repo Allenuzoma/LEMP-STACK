@@ -203,52 +203,123 @@ sudo apt install mysql-server
     ![image](https://github.com/user-attachments/assets/90e91999-b007-429a-a2cf-467772e49fdf)
 
 
-   **Step 4: Create a Virtual Host**
+   **Step 4: Configure Nginx to Use PHP Processor**
 
-To test the PHP script to ensure PHP is running properly alongside Apache, we have create an Apache virtual host that will contain the website's files and folders. Virtual host means running more than one 
- website on a single machine. This process is done using different IP address or name of IP addresses.
+ Next we would create server blocks to encapsulate configuration details and host more than one domain on a single server.
 
  
-Apache has a default server block from which it serves documents from the /var/www/html directory.
-We would set up a domain called Project Lamp and this would be located in a new directory /var/www/projectlamp/ which would host our project's files:
+ Nginx has a default server block from which it serves documents from the /var/www/html directory.
+ We would set up a domain called Project LEMP and this would be located in a new directory /var/www/projectlemp/ which would host our project's files and be 
+ the server block from which files are served:
 
 
 - Create a new directory using the command:
     
-       sudo mkdir /var/www/projectlamp/
+       sudo mkdir /var/www/projectlemp/
   
 
 + Next, we would assign ownership of the directory to the current user using the command:
-       sudo chown -R $USER:$USER /var/www/projectlamp
+       sudo chown -R $USER:$USER /var/www/projectlemp
 
 
-+ We then create a configuration file for our project named projectlamp.conf. This will contain the barebone configuration for the virtual host created and will be stored in the Apache site-available 
- directory /etc/apache2/sites-available/.
-We would use a command line editor like Nano to create the projectlamp.conf: sudo nano /etc/apache2/sites-available/projectlamp.conf
++ We then create a configuration file for our project named projectlemp.conf. This will contain the barebone configuration for the server block created and 
+ will be stored in the Nginx site-available directory /etc/nginx/sites-available/.
+We would use a command line editor like Nano to create the projectlamp.conf:
 
-        <VirtualHost *:80> 
-        ServerName projectlamp 
-        ServerAlias www.projectlamp 
-        ServerAdmin webmaster@localhost 
-        DocumentRoot /var/www/projectlamp 
-        ErrorLog ${APACHE_LOG_DIR}/error.log 
-        CustomLog ${APACHE_LOG_DIR}/access.log combined 
-        </VirtualHost> 
+     sudo nano /etc/nginx/sites-available/projectlemp.conf
+
+#/etc/nginx/sites-available/projectlemp
+
+server {
+    listen 80;
+    server_name projectlemp www.projectlemp;
+    root /var/www/projectlemp;
+
+    index index.html index.htm index.php;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+     }
+    location ~ /\.ht {
+        deny all;
+     }
+        }
 
 
-   ![creating projectlampconf on nano](https://github.com/user-attachments/assets/0e9f127e-2592-45c5-bda9-5d28083a6b8a)
+![projectlemp conf](https://github.com/user-attachments/assets/c68edfa4-0dea-4c0f-a3a7-0d8fd1ffab67)
+
+ Next we will activate the configuration by linking to the config file from nginx sites-enabled directory:
+
+ 
+         sudo ln -s /etc/nginx/sites-available/projectlemp/ /etc/nginx/sites-enabled/
 
 
- + We then enable the new virtual host using the command :
+ This will tell Nginx to use the newly created barebones server block configuration next time it is reloaded. 
+ 
+ + You can test your configuration for syntax errors in the projectlemp.conf file :
+ by typing:
+
+               sudo nginx -t
 
 
-        sudo a2ensite projectlamp
+    ![image](https://github.com/user-attachments/assets/4b019435-9c2f-4d8d-9c57-d48543e4d5ca)
+
+ I had a hassle here. There were some discrepancies in the code. It kept bringing up error message.  I had to make sure my domain name matched the server 
+ detailes in the server block code and I made sure every curly bracket was accounted for. 
+ 
+ + Next we will disable the default nginx host currently configured to listen to port 80 using:
+
+               sudo unlink /etc/nginx/sites-enabled/default
++ Reload Nginx:
+
+              sudo systemctl reload nginx
+
++ Reloading the website shows the Nginx page with a 403 forbidden message
+
+  
+![image](https://github.com/user-attachments/assets/e0a6a09b-1619-400c-b1e8-2c4558affb85)
+
+
+
+
+
+This is because the webroot in /var/www/projectlemp is currently empty. We will have to create amn index.html file with s simple code in our webroot directory to test that the new server block is working as expected.
+
++ Create the index.html file:
+
+       sudo nano /var/www/projectlemp/index.html
+
+
+
++ Copy the code into the index.html
+
+        <!DOCTYPE html>
+                <html lang="en">
+                  <body>
+                    <h1>Welcome to Project LEMP website</h1>
+                    <h1>Created by Allens Uzoma Okwudei!</h1>
+                  </body>
+                </html>
+
+
+
+       
+
+
+ ![image](https://github.com/user-attachments/assets/ef379739-5345-456a-b9ce-4439a151bbe9)
+
+
+ 
+      
+ 
+ 
 
    
- + Apache has a default website running. This website will interfere with our virtual host if not disabled. We would be getting the same old default page.
-
-
-
 
     ![apache2 website](https://github.com/user-attachments/assets/7c6fd9cb-9d38-46cd-ad22-ece2622731ae)
 
