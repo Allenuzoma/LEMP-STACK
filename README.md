@@ -32,7 +32,8 @@ PHP: The server-side scripting language used to build dynamic web content.
 
 + Establish an SSH connection to the instance using Putty using the public DNS name and the private key downloaded.
 
-    ![putty front page](https://github.com/user-attachments/assets/ab61ed52-506b-4c44-b99c-33e480bfa265)
+    ![putty front page](https://github.com/user-attachments/assets/f7bb6a64-7135-42f7-81b8-7f06672cfe99)
+
 
  
     ![auth credential](https://github.com/user-attachments/assets/ce7905e2-f9a4-495d-abca-1d5e845be08a)
@@ -54,36 +55,43 @@ PHP: The server-side scripting language used to build dynamic web content.
 
 
 
-    ![putty first page after login](https://github.com/user-attachments/assets/755c4002-f989-40a4-94d7-962515f3cfb4)
+    ![putty after signing in](https://github.com/user-attachments/assets/87e9ba9f-7d63-4632-aa41-6a2a2bf92202)
 
 
 
-**Step 1. Install Apache2 on the instance**
+
+**Step 1. Install Nginx on the instance**
    
    
-   Apache2 is a widely-used open-source web server software that allows websites to be hosted on the internet. It serves web content (HTML, PHP, etc.) to users' browsers when they request a website. Apache 
+   Nginx is a widely-used open-source web server software that allows websites to be hosted on the internet. It serves web content (HTML, PHP, etc.) to users' 
+   browsers when they request a website. Nginx 
    is highly configurable, reliable, and can run on various operating systems like Linux, Windows, and macOS.
 - Install apache2 using the command:
        sudo apt update
-       sudo apt install apache2 
-       ![sudo apt install apache2](https://github.com/user-attachments/assets/644d22da-a040-454b-9f26-b79ce2c33f77)
+       sudo apt install nginx
+       ![sudo install nginx](https://github.com/user-attachments/assets/d0d7b074-818e-4233-afc3-26330b39f5aa)
 
 
 
-* Verify apache2 is up and running using the command:
-       sudo systemctl status apache2
-       ![image](https://github.com/user-attachments/assets/5da4f99b-481e-44b7-b2d8-4650af88b121)
+
+* Verify nginx is up and running using the command:
+       sudo systemctl status nginx
+       ![systemctl status nginx](https://github.com/user-attachments/assets/324f3a34-8a10-485a-96d1-374b19e6172c)
 
 
 + In order for communication with apache2 we have to visit the security group and create a new inbound rule for http on Port 80 to traffic from any IPV4 address 0.0.0.0/0
-       ![image](https://github.com/user-attachments/assets/8599cf8a-6688-43a7-9b6c-60967967d8cd)
+       ![image](https://github.com/user-attachments/assets/c38982e2-2374-405a-b902-5d9e0e362bdd)
 
-+ Using curl http://localhost:80 or curl http://127.0.0.1:80 on the terminal or http://<public ip address of the instance> http://18.170.52.8 on a browser to confirm our apache2 web server is functioning appropriately
+
+
++ Using curl http://localhost:80 or curl http://127.0.0.1:80 on the terminal or http://<public ip address of the instance> http://18.171.235.246 on a browser to confirm our nginx web server is functioning appropriately
   
   
-  ![curl localhost to access apache](https://github.com/user-attachments/assets/45d7fe97-e121-4fd2-a37f-b66e6dbcbbd6)
+  ![image](https://github.com/user-attachments/assets/660c8774-37aa-41db-a90a-fb91cc060f14)
 
-  ![apache homepage](https://github.com/user-attachments/assets/4e1bede8-c123-46e8-8317-769f68f2dba4)
+
+  ![image](https://github.com/user-attachments/assets/c97d875a-e106-42d6-8aba-889038f9f4cc)
+)
 
 
 
