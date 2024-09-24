@@ -508,7 +508,7 @@ The output:
 
 ![image](https://github.com/user-attachments/assets/df126ddb-646a-4381-aa17-bb0120cbde89)
 
-We can see all items entered into our table is showing. This confirms that PHP is communicating with MySQL to serve contents from the database.
+We can see all items entered into our table in our datatbase are showing. This confirms that PHP is communicating with MySQL to serve contents from the database.
 
 **THANK YOU**
 
