@@ -69,14 +69,21 @@ PHP: The server-side scripting language used to build dynamic web content.
 - Install apache2 using the command:
        sudo apt update
        sudo apt install nginx
-       ![sudo install nginx](https://github.com/user-attachments/assets/d0d7b074-818e-4233-afc3-26330b39f5aa)
+
+
+
+   ![sudo install nginx](https://github.com/user-attachments/assets/d0d7b074-818e-4233-afc3-26330b39f5aa)
 
 
 
 
 * Verify nginx is up and running using the command:
        sudo systemctl status nginx
-       ![systemctl status nginx](https://github.com/user-attachments/assets/324f3a34-8a10-485a-96d1-374b19e6172c)
+
+
+
+
+   ![systemctl status nginx](https://github.com/user-attachments/assets/324f3a34-8a10-485a-96d1-374b19e6172c)
 
 
 + In order for communication with apache2 we have to visit the security group and create a new inbound rule for http on Port 80 to traffic from any IPV4 address 0.0.0.0/0
@@ -87,11 +94,15 @@ PHP: The server-side scripting language used to build dynamic web content.
 + Using curl http://localhost:80 or curl http://127.0.0.1:80 on the terminal or http://<public ip address of the instance> http://18.171.235.246 on a browser to confirm our nginx web server is functioning appropriately
   
   
-  ![image](https://github.com/user-attachments/assets/660c8774-37aa-41db-a90a-fb91cc060f14)
+
+
+   ![image](https://github.com/user-attachments/assets/660c8774-37aa-41db-a90a-fb91cc060f14)
+
+
 
 
   ![image](https://github.com/user-attachments/assets/c97d875a-e106-42d6-8aba-889038f9f4cc)
-)
+
 
 
 
@@ -107,13 +118,19 @@ PHP: The server-side scripting language used to build dynamic web content.
   We need to install a database management system to be able to store and manage relational data for our website. 
 - To install MySQL we use the command: 
 sudo apt install mysql-server
- ![install mysql-server](https://github.com/user-attachments/assets/bcd7ce9a-164b-472d-ba2f-6717fe7c4cd9)
+
+
+
+
+![install mysql-server](https://github.com/user-attachments/assets/bcd7ce9a-164b-472d-ba2f-6717fe7c4cd9)
 
 
 * We then login to the MYSQL console by typing: sudo mysql
 
   
-    ![after install mysql](https://github.com/user-attachments/assets/7d21a283-8d8d-4f9a-92a7-67f64d457d6a)
+
+
+  ![after install mysql](https://github.com/user-attachments/assets/7d21a283-8d8d-4f9a-92a7-67f64d457d6a)
 
 
  We are now connected to the MySQL server as the administrative database root user. We have to set as the root user to prevent unauthorized access into the 
@@ -123,17 +140,27 @@ sudo apt install mysql-server
 + Set MYSQL root user password by entering the command :
  ALTER USER'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password.1';
 
-    ![image](https://github.com/user-attachments/assets/452e95b4-08f1-4678-b6ba-e1a7f58234e2)
+
+
+   ![image](https://github.com/user-attachments/assets/452e95b4-08f1-4678-b6ba-e1a7f58234e2)
 
 
 
 - Exit the MySQL shell by typing: >exit
-* Next we would start an interact an interactive script that would allow us to remove any insecure default settings and futher lockdown access to our database system using the command:
-   sudo mysql_secure_installation ![sudo mysql_secure_installation](https://github.com/user-attachments/assets/b8d523dc-ead6-4638-9dd2-73b5fad8b622)
+* Next we would start an interact an interactive script that would allow us to remove any insecure default settings 
+  and futher lockdown access to our database system using the command:
 
 
-+ We would be asked to validate password plugin. We will have to choose a level for password validation with different categories. 0 = Low, 1 = Medium and 2 
- =Strong. Recall that the password earlier created 
+
+   sudo mysql_secure_installation
+
+
+
+  ![sudo mysql_secure_installation](https://github.com/user-attachments/assets/b8d523dc-ead6-4638-9dd2-73b5fad8b622)
+
+
++ We would be asked to validate password plugin. We will have to choose a level for password validation with different 
+ categories. 0 = Low, 1 = Medium and 2 = Strong. Recall that the password earlier created 
   for the root user was "password.1" and this matches the level 0. We would stick with it and choose 0.
 
   
@@ -144,7 +171,9 @@ sudo apt install mysql-server
    
   We would be asked to choose yes or no for some other questions. We can select yes to all.
 
-     ![yes to all](https://github.com/user-attachments/assets/dcd55af7-f019-40f4-84d9-a373b2fd3fab)
+
+
+  ![yes to all](https://github.com/user-attachments/assets/dcd55af7-f019-40f4-84d9-a373b2fd3fab)
 
 
 
@@ -155,19 +184,8 @@ sudo apt install mysql-server
     ![image](https://github.com/user-attachments/assets/113d2ab4-dd43-42c5-ad46-fc36444a7c4a)
 
 
-  No error means we have successfully accessed the console using the password. We then exit the console by entering the exit command.
-
-
-
-
-
-
-
-
-
-
-
-
+  No error means we have successfully accessed the console using the password. We then exit the console by entering 
+  the exit command.
 
 
 
@@ -175,13 +193,16 @@ sudo apt install mysql-server
 
 
 
-  PHP (Hypertext Preprocessor) is a popular open-source scripting language used primarily for web development, enabling the creation of dynamic and interactive 
- websites. It runs on the server side and is embedded in HTML to handle tasks like form data processing, database interactions, and content management. Nginx 
- requires external program to handle PHP processing and act as bridge between the PHP interpreter and the webserver. This will ensure a better overall 
- performance in PHP websites.
+  PHP (Hypertext Preprocessor) is a popular open-source scripting language used primarily for web development, 
+ enabling the creation of dynamic and interactive 
+ websites. It runs on the server side and is embedded in HTML to handle tasks like form data processing, database 
+ interactions, and content management. Nginx 
+ requires external program to handle PHP processing and act as bridge between the PHP interpreter and the webserver. 
+ This will ensure a better overall performance in PHP websites.
  
-  You have to install PHP and two php packages: 1. **php-fpm** module which stands for PHP Fast CGI Process manager. We would tell Nginx to pass PHP request to 
- this software for processing. 2. We install PHP-mysql to allow communication between PHP and MySQL databases. Other packages are installed automatically upon installlation of PHP.
+  You have to install PHP and two php packages: 1. **php-fpm** module which stands for PHP Fast CGI Process manager. 
+  We would tell Nginx to pass PHP request to this software for processing. 2. We install PHP-mysql to allow 
+ communication between PHP and MySQL databases. Other packages are installed automatically upon installlation of PHP.
   - Install both modules using the command:
     
 
@@ -200,16 +221,20 @@ sudo apt install mysql-server
 
 
 
-    ![image](https://github.com/user-attachments/assets/90e91999-b007-429a-a2cf-467772e49fdf)
+
+
+     ![image](https://github.com/user-attachments/assets/90e91999-b007-429a-a2cf-467772e49fdf)
 
 
    **Step 4: Configure Nginx to Use PHP Processor**
 
- Next we would create server blocks to encapsulate configuration details and host more than one domain on a single server.
+ Next we would create server blocks to encapsulate configuration details and host more than one domain on a single 
+ server.
 
  
  Nginx has a default server block from which it serves documents from the /var/www/html directory.
- We would set up a domain called Project LEMP and this would be located in a new directory /var/www/projectlemp/ which would host our project's files and be 
+ We would set up a domain called Project LEMP and this would be located in a new directory /var/www/projectlemp/ which 
+ would host our project's files and be 
  the server block from which files are served:
 
 
@@ -227,6 +252,9 @@ sudo apt install mysql-server
 We would use a command line editor like Nano to create the projectlamp.conf:
 
      sudo nano /etc/nginx/sites-available/projectlemp.conf
+
+
+
 
 #/etc/nginx/sites-available/projectlemp
 
@@ -251,8 +279,11 @@ server {
         }
 
 
+
 ![projectlemp conf](https://github.com/user-attachments/assets/c68edfa4-0dea-4c0f-a3a7-0d8fd1ffab67)
 
+ 
+ 
  Next we will activate the configuration by linking to the config file from nginx sites-enabled directory:
 
  
@@ -267,9 +298,13 @@ server {
                sudo nginx -t
 
 
-    ![image](https://github.com/user-attachments/assets/4b019435-9c2f-4d8d-9c57-d48543e4d5ca)
 
- I had a hassle here. There were some discrepancies in the code. It kept bringing up error message.  I had to make sure my domain name matched the server 
+   ![image](https://github.com/user-attachments/assets/4b019435-9c2f-4d8d-9c57-d48543e4d5ca)
+
+   
+
+ I had a bit of a hassle here. There were some discrepancies in the code. It kept bringing up error message.  I had to 
+ make sure my domain name matched the server 
  detailes in the server block code and I made sure every curly bracket was accounted for. 
  
  + Next we will disable the default nginx host currently configured to listen to port 80 using:
@@ -282,13 +317,16 @@ server {
 + Reloading the website shows the Nginx page with a 403 forbidden message
 
   
+
+
 ![image](https://github.com/user-attachments/assets/e0a6a09b-1619-400c-b1e8-2c4558affb85)
 
 
 
 
 
-This is because the webroot in /var/www/projectlemp is currently empty. We will have to create amn index.html file with s simple code in our webroot directory to test that the new server block is working as expected.
+This is because the webroot in /var/www/projectlemp is currently empty. We will have to create amn index.html file 
+ with s simple code in our webroot directory to test that the new server block is working as expected.
 
 + Create the index.html file:
 
@@ -311,6 +349,8 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
        
 
 
+
+ 
  ![image](https://github.com/user-attachments/assets/ef379739-5345-456a-b9ce-4439a151bbe9)
 
 
@@ -323,7 +363,8 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
 
   
 
- + Reloading our web browser displays a more meaningful webpage which is accessed with the public IP adress or the public DNS name.
+ + Reloading our web browser displays a more meaningful webpage which is accessed with the public IP adress or the 
+ public DNS name.
 
 
     
@@ -334,7 +375,6 @@ This is because the webroot in /var/www/projectlemp is currently empty. We will 
 
 
 
- 
 
 
 
@@ -352,7 +392,11 @@ We enter the following script into the info.php file
 
 ![image](https://github.com/user-attachments/assets/7953ec07-9586-4538-a1d0-47787035f140)
 
+
+
 + On your browser visit http://<ipaddress>/info.php and you will see the php homepage.
+
+
 
 
 ![image](https://github.com/user-attachments/assets/66312c77-2a77-419b-88d9-abad25f5d5a1)
@@ -364,87 +408,113 @@ We enter the following script into the info.php file
 
                 sudo rm /var/www/projectlemp/info.php
 
-Reloading our nrowser takes us to 403 forbidden page.
+Reloading our browser takes us back to the 403 forbidden page.
   
             
             
+
 ![dir conf before](https://github.com/user-attachments/assets/6c0298f0-8848-43dc-a6b3-40146746a128)
 
 
 
-- Rearrange the code so that index.php comes before index.html:
+**Step 6: Retrieving Data From MySQL Database with PHP**
+We will create and configure a test database so that nginx can query and display data from it.
+We will name the database lemp_database and the user lemp_user
+- We will connect to the console with password by typing:
+
+          sudo mysql -p
+
+* Next we create the database by typing:
+
+          CREATE DATABASE lemp_database;
+
++ We create the new user and assign a new password:
+
+          CREATE USER 'lemp_user'@'%' IDENTIFIED WITH mysql_native_password BY 'password.1';
++ Next we give lemp_user permission over the lemp_database:
+
+  GRANT ALL ON lemp_database.* TO 'lemp_user'@'%';
+
++ Exit the console and try to log in again to see if the user has all permissions assigned.
+      >exit
++ Type in this code to sign into the console as the user. Enter the password created when creating the database user:
+
+    sudo mysql -u lemp_user -p
+
++ To be able to confirm access and see the database present, enter:
+    SHOW DATABASES;
 
 
+  ![show databases](https://github.com/user-attachments/assets/2c99f462-635a-43df-8507-3a23fd47637e)
 
 
-  ![dir conf before](https://github.com/user-attachments/assets/8d9a3c5c-6741-49fb-83e2-dd3ce89d6693)
+We can see our created database lemp_database sitting pretty alongside other default entities
 
-
-
-- Reload Apache:
-
++ We create a table in our database called todo_list:
   
-          sudo systemctl reload apache2
+    CREATE TABLE lemp_database.todo_list (
+	item_id INT AUTO_INCREMENT,
+	content VARCHAR(255),
+	PRIMARY KEY(item_id)
+    ); 
++ Next we populate our newly created table with contents:
+
+   INSERT INTO lemp_database.todo_list (content) VALUES ("My first important item");
+   INSERT INTO lemp_database.todo_list (content) VALUES ("My second important item");
+   INSERT INTO lemp_database.todo_list (content) VALUES ("My third important item");
+   INSERT INTO lemp_database.todo_list (content) VALUES ("and this one more thing");
+  
++ We confirm the presence of the newly created rows of content in our table using:
+  
+  SELECT * FROM example_database.todo_list;
 
 
- + We then create the index.php file to confirm that apache is able to handle and process request for php files. To do this, edit the index.php file
+  The todo_list table looks thus:
+  
 
-                nano /var/www/projectlamp/index.php
-   
+  ![table content showing](https://github.com/user-attachments/assets/84ab3bcc-592c-4cbe-bc5d-30ece00da2ca)
+
+  + Exit the console
+  + Next we would create a php script that would connect to MYSQL and query for content. This script will be located in the webroot folder of our domain:
  
- + And copy the following code into it:
+     sudo nano /var/www/projectlemp/todo_list.php
 
-   
-                <?php 
-                phpinfo();
+  + Copy the following code into it:
 
+                
+                <?php
+                $user = "lemp_user";
+                $password = "password.1";
+                $database = "lemp_database";
+                $table = "todo_list";
+                
+                try {
+                  $db = new PDO("mysql:host=localhost;dbname=$database", $user, $password);
+                  echo "<h2>TODO</h2><ol>";
+                  foreach($db->query("SELECT content FROM $table") as $row) {
+                    echo "<li>" . $row['content'] . "</li>";
+                  }
+                  echo "</ol>";
+                } catch (PDOException $e) {
+                    print "Error!: " . $e->getMessage() . "<br/>";
+                    die();
 
+The output:
 
+![php script for quering db](https://github.com/user-attachments/assets/95b68e0a-90a7-4e18-a172-4421d080a571)
 
-
-
-
-    ![index php](https://github.com/user-attachments/assets/5d254b5f-c9d5-46e7-a5db-088f0f655777)
-
-
-
- + On refreshing our website, we see the index.php webpage:
-
-
-
-
-
-
-
- ![index php webpage](https://github.com/user-attachments/assets/733aa40a-d7bb-4524-91f5-d02e27c1e073)
-
-
-
-
++ Enter your browser and enter your ip address in this format http://<your domain>/todo_list.php. Using our IP address, http://18.171.235.246/todo_list.php
 
 
+![image](https://github.com/user-attachments/assets/df126ddb-646a-4381-aa17-bb0120cbde89)
 
+We can see all items entered into our table is showing. This confirms that PHP is communicating with MySQL to serve contents from the database.
 
- + Due to the fact that the index.php file carries sensitive information about the PHP environment and the ubuntu server, we have to delete index.php file from the project lamp folder.
-                 
-                 
-                 
-                 
-                 sudo rm /var/www/projectlamp/index.php
-
-
-
-                 
-
-  + Reloading the browser displayed the index.html website again.
+**THANK YOU**
 
 
 
 
-
-
-
- ![image](https://github.com/user-attachments/assets/ab0e807e-4829-4f51-8bc2-0a0fd4ed86ef)
-
+       
 
 
